@@ -9,6 +9,10 @@ jobs:
   run:
     runs-on: [self-hosted, cmba]
     steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
       - name: execute one-thing
         run: |
+          npm i -g one-thing
           one-thing "${{ github.event.inputs.message }}"
