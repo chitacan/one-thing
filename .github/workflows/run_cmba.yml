@@ -1,0 +1,14 @@
+name: run one-thing on cmba
+on:
+  workflow_dispatch:
+    message:
+      description: message
+      required: true
+
+jobs:
+  run:
+    runs-on: [self-hosted, cmba]
+    steps:
+      - name: execute one-thing
+        run: |
+          one-thing "${{ github.event.inputs.message }}"
