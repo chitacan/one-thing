@@ -1,9 +1,10 @@
 name: run one-thing on cmba
 on:
   workflow_dispatch:
-    message:
-      description: message
-      required: true
+    inputs:
+      message:
+        description: message
+        required: true
 
 jobs:
   run:
