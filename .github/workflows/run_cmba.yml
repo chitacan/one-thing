@@ -22,8 +22,14 @@ jobs:
       - name: execute one-thing
         run: |
           npx one-thing "${{ github.event.inputs.message }}"
-      - name: update dash snippet
-        if: ${{ github.event.inputs.key != '' }}
+      - name: update dash snippets
+        if: ${{ github.event.inputs.key != '' && github.event.inputs.title != '' && github.event.inputs.url != ''}}
+        env:
+          DASH_DB: "/Users/chitacan/Library/Application Support/Dash/library.dash"
         run: |
-          sqlite3 "/Users/chitacan/Library/Application Support/Dash/library.dash" \
+          sqlite3 "$DASH_DB" \
             "UPDATE snippets SET body = '${{ github.event.inputs.key }}' WHERE sid = 1"
+          sqlite3 "$DASH_DB" \
+            "UPDATE snippets SET body = '${{ github.event.inputs.title }}' WHERE sid = 2"
+          sqlite3 "$DASH_DB" \
+            "UPDATE snippets SET body = '${{ github.event.inputs.url }}' WHERE sid = 3"
