@@ -5,6 +5,12 @@ on:
       message:
         description: message
         required: true
+      key:
+        description: task key
+      title:
+        description: task title
+      url:
+        description: task url
 
 jobs:
   run:
@@ -15,5 +21,9 @@ jobs:
           node-version: 18
       - name: execute one-thing
         run: |
-          npm i -g one-thing
-          one-thing "${{ github.event.inputs.message }}"
+          npx one-thing "${{ github.event.inputs.message }}"
+      - name: update dash snippet
+        if: ${{ github.event.inputs.key != '' }}
+        run: |
+          sqlite3 "/Users/chitacan/Library/Application Support/Dash/library.dash" \
+            "UPDATE snippets SET body = '${{ github.event.inputs.key }}' WHERE sid = 1"
