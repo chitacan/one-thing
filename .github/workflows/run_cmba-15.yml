@@ -1,4 +1,4 @@
-name: run one-thing on cmba
+name: run one-thing on cmba-15
 on:
   workflow_dispatch:
     inputs:
@@ -14,7 +14,7 @@ on:
 
 jobs:
   run:
-    runs-on: [self-hosted, cmba]
+    runs-on: [self-hosted, cmba-15]
     steps:
       - uses: actions/setup-node@v4
         with:
